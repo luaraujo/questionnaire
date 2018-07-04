@@ -15,6 +15,12 @@
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
     {% block css %}
     
     <!-- Latest compiled and minified Bootstrap 4 beta CSS -->

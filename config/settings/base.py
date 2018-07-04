@@ -68,9 +68,17 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    'bootstrap4',
 ]
 LOCAL_APPS = [
     'metaquest.users.apps.UsersAppConfig',
+    'metaquest.questionnaires.apps.QuestionnairesConfig',
+    'metaquest.questions.apps.QuestionsConfig',
+    'metaquest.answers.apps.AnswersConfig',
+    'metaquest.expressions.apps.ExpressionsConfig',
+    'metaquest.validations.apps.ValidationsConfig',
+    'metaquest.triggers.apps.TriggersConfig',
+    'metaquest.commons',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
