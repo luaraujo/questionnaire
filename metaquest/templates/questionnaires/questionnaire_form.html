@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+
+{% block title %}{{ id }}{% endblock %}
+
+{% block content %}
+  <h1>{% if name %}{{name}}{% else %}New{% endif %} Questionnaire</h1>
+  <form class="form-horizontal" method="post" action="">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+      {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    {% endbuttons %}
+</form>
+{% endblock %}
+
+

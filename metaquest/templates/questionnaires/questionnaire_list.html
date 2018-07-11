@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block title %}{{ id }}{% endblock %}
+
+{% block content %}
+<h1>Questionnaires</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for questionnaire in object_list %}
+        <tr>
+            <th scope="row"><a href="{% url "questionnaires:detail" questionnaire.id %}">{{questionnaire.id}}</a></th>
+            <td>{{questionnaire.name}}</td>
+            <td>{{questionnaire.description}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url "questionnaires:add" %}">New</a>
+{% endblock %}
