@@ -1,5 +1,6 @@
 from django.db import models
 from metaquest.commons.models import BaseModel
+from metaquest.questionnaires.utils import QuestionnaireEncoder
 
 class Questionnaire(BaseModel):
 	description = models.CharField(max_length=255)
@@ -10,3 +11,6 @@ class Questionnaire(BaseModel):
 
 	def get_absolute_url(self):
 		return reverse("questionnaire-edit", kwargs={'pk': self.pk})
+
+	def export(self):
+		return QuestionnaireEncoder().encode(self)

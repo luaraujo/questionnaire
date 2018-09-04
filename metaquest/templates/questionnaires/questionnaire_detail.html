@@ -10,6 +10,7 @@
     </div>
     <div class="col-md-7 align-self-center text-right">
         <div class="d-flex justify-content-end align-items-center">
+            <button type="button" class="btn btn-info d-none d-lg-block m-l-15" onclick="location.href='{% url "questionnaires:download" object.id %}';"><i class="fa fa-cloud-download"></i> Export</button>
             <button type="button" class="btn btn-info d-none d-lg-block m-l-15" onclick="location.href='{% url "questionnaires:delete" object.id %}';"><i class="fa fa-minus-circle"></i> Delete</button>
         </div>
     </div>

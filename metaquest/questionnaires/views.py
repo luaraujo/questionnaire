@@ -3,6 +3,8 @@ from django.views.generic import DetailView, ListView, UpdateView, CreateView, D
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, Http404
+
 
 class QuestionnaireList(ListView):
     model = Questionnaire
@@ -53,3 +55,11 @@ class QuestionnaireDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
     	return super(QuestionnaireDelete, self).dispatch(*args, **kwargs)
+
+def download(request, id):
+    questionnaire = Questionnaire.objects.get(pk=id)
+    if(questionnaire):
+        response = HttpResponse(questionnaire.export(), content_type="application/json")
+        response['Content-Disposition'] = 'attachment; filename=' + questionnaire.name + ".json"
+        return response
+    raise Http404

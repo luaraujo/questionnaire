@@ -5,6 +5,7 @@ from metaquest.questionnaires.models import Questionnaire
 
 app_name = "questionnaires"
 urlpatterns = [ 
+	path('download/<int:id>', views.download, name="download"),
 	path('add/', views.QuestionnaireCreate.as_view(), name="add"),
 	path('update/<int:pk>/', views.QuestionnaireUpdate.as_view(), name='update'),
 	path('delete/<int:pk>/', views.QuestionnaireDelete.as_view(), name='delete'),
