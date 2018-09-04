@@ -1,4 +1,4 @@
-from metaquest.questionnaires.models import Questionnaire, Topic
+from metaquest.questionnaires.models import Questionnaire
 from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
