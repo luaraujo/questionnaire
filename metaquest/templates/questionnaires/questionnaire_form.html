@@ -1,21 +1,76 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load bootstrap4 %}
-
+{% load widget_tweaks %}
 
 {% block title %}{{ id }}{% endblock %}
 
 {% block content %}
-  <h1>{% if name %}{{name}}{% else %}New{% endif %} Questionnaire</h1>
-  <form class="form-horizontal" method="post" action="">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-      {% buttons %}
-      <button type="submit" class="btn btn-primary">
-        Submit
-      </button>
-    {% endbuttons %}
-</form>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+    	<h4 class="text-themecolor">{% if object.name %}{{object.name}}{% else %}New{% endif %} Questionnaire</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+    	{% if object.name %}
+        <div class="d-flex justify-content-end align-items-center">
+            <button type="button" class="btn btn-info d-none d-lg-block m-l-15" data-toggle="modal" data-target="#delete-modal"><i class="fa fa-minus-circle"></i> Delete</button>
+        </div>
+        {% endif %}	
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <!--<div class="card-header bg-info"></div>-->
+            <div class="card-body">
+				<form class="form-horizontal" method="post" action="">
+					<div class="form-body">
+                        <!-- <h3 class="card-title">{% if name %}{{name}}{% else %}New{% endif %} Questionnaire</h3>
+                        <hr> -->
+				    	{% csrf_token %}
+				    	{% for field in form %}
+					    <div class="form-group row">
+	                        <label for="{{field.name}}" class="col-sm-3 text-right control-label col-form-label">{{ field.label }}:</label>
+	                        <div class="col-sm-9">
+	                            {{ field|append_attr:'class:form-control'}}
+	                            <small class="form-control-feedback">{{ field.errors }}</small>
+	                        </div>
+	                    </div>
+				    	{% endfor %}
+				    </div>
+				    <div class="form-actions row">
+				    	<div class="col-sm-3"></div>
+				    	<div class="col-sm-9">
+                        	<button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                        	<button type="button" class="btn btn-inverse">Cancel</button>
+                    	</div>
+                    </div>
+				</form>
+			</div>
+        </div>
+    </div>
+</div>
+{% if object.name %}
+<div id="delete-modal" class="modal fade bs-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form method="post" action="{% url "questionnaires:delete" object.id %}">
+            <div class="modal-body">
+                <h4>Are you sure you want to delete the questionnaire {{object.name}}?</h4>
+                <p>All of the related items will be deleted!</p>
+				{% csrf_token %}
+            </div>
+            <div class="modal-footer">
+            	<button type="submit" class="btn btn-success"> Delete</button>
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{% endif %}
 {% endblock %}
-
-

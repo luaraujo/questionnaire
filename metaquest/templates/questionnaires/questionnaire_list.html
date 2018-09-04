@@ -1,29 +1,84 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load bootstrap4 %}
-
+{% load staticfiles %}
+{% block styles_pre %}
+    <!-- Footable CSS -->
+    <link href="{% static 'assets/node_modules/footable/css/footable.core.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/node_modules/bootstrap-select/bootstrap-select.min.css'%}" rel="stylesheet" />
+{% endblock %}
 {% block title %}{{ id }}{% endblock %}
+{% block styles_pos %}
+    <!-- Footable CSS -->
+    <link href="{% static 'dist/css/pages/footable-page.css'%}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-<h1>Questionnaires</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for questionnaire in object_list %}
-        <tr>
-            <th scope="row"><a href="{% url "questionnaires:detail" questionnaire.id %}">{{questionnaire.id}}</a></th>
-            <td>{{questionnaire.name}}</td>
-            <td>{{questionnaire.description}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Questionnaires</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+            <button type="button" class="btn btn-info d-none d-lg-block m-l-15" onclick="location.href='{% url "questionnaires:add" %}';"><i class="fa fa-plus-circle"></i> Create New</button>
+        </div>
+    </div>
+</div>
 
-<a href="{% url "questionnaires:add" %}">New</a>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th class="footable-sortable" scope="col">#
+                            <span class="footable-sort-indicator"></span>
+                        </th>
+                        <th class="footable-sortable" scope="col">Name
+                            <span class="footable-sort-indicator"></span>
+                        </th>
+                        <th class="footable-sortable" scope="col">Description
+                            <span class="footable-sort-indicator"></span>
+                        </th>
+                         <th class="footable-sortable">
+                            <span class="footable-sort-indicator"></span>
+                         </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for questionnaire in object_list %}
+                    <tr class="footable-even" style="">
+                        <td>
+                            <span class="footable-toggle"></span>
+                            <a href="{% url "questionnaires:detail" questionnaire.id %}">{{questionnaire.id}}</a>
+                        </td>
+                        <td>{{questionnaire.name}}</td>
+                        <td>{{questionnaire.description}}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Edit" onclick="location.href='{% url "questionnaires:update"  questionnaire.id %}';"><i class="ti-pencil" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                        </td>
+                        
+                        <td colspan="7">
+                            <!-- <div class="text-right">
+                                <ul class="pagination"> <li class="footable-page-arrow disabled"><a data-page="first" href="#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="#prev">‹</a></li><li class="footable-page active"><a data-page="0" href="#">1</a></li><li class="footable-page"><a data-page="1" href="#">2</a></li><li class="footable-page-arrow"><a data-page="next" href="#next">›</a></li><li class="footable-page-arrow"><a data-page="last" href="#last">»</a></li></ul>
+                            </div> -->
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
+{% block javascript_page %}
+    <!-- Footable -->
+    <script src="{% static '/assets/node_modules/footable/js/footable.all.min.js'%}"></script>
+    <!--FooTable init-->
+    <script src="{% static 'dist/js/pages/footable-init.js'%}"></script>
+{% endblock javascript_page%}
