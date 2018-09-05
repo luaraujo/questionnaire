@@ -73,6 +73,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'metaquest.users.apps.UsersAppConfig',
     'metaquest.questionnaires.apps.QuestionnairesConfig',
+    'metaquest.topics.apps.TopicsConfig',
     'metaquest.questions.apps.QuestionsConfig',
     'metaquest.answers.apps.AnswersConfig',
     'metaquest.expressions.apps.ExpressionsConfig',
